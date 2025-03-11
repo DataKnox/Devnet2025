@@ -17,7 +17,7 @@ def main():
     try:
         # Get all organizations
         organizations = dashboard.organizations.getOrganizations()
-        
+     
         # Find the specific organization
         org_id = None
         for org in organizations:
