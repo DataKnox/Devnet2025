@@ -8,7 +8,7 @@ def main():
     # FMC API credentials
     host = "fmcrestapisandbox.cisco.com"
     username = "knoxkn"
-    password = "q82ou&_XgM&21mbE"
+    password = "hyHJvC_1E3#8"
 
     try:
         # Create FMC connection object
