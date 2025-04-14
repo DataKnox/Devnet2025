@@ -1,0 +1,52 @@
+---
+- name: Configure OSPF on GigabitEthernet2 using NETCONF
+  hosts: ios_xe_routers
+  gather_facts: false
+  connection: netconf
+
+  tasks:
+    - name: Configure GigabitEthernet2 interface
+      netconf_config:
+        target: running
+        xml: |
+          <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+              <interface>
+                <GigabitEthernet>
+                  <name>2</name>
+                  <ip>
+                    <address>
+                      <primary>
+                        <address>192.168.1.{{ 35 if inventory_hostname == 'router1' else 101 }}</address>
+                        <mask>255.255.255.0</mask>
+                      </primary>
+                    </address>
+                  </ip>
+                </GigabitEthernet>
+              </interface>
+            </native>
+          </config>
+
+    - name: Configure OSPF
+      netconf_config:
+        target: running
+        xml: |
+          <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+              <router>
+                <ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+                  <id>1</id>
+                  <network>
+                    <ip>192.168.1.0</ip>
+                    <mask>255.255.255.0</mask>
+                    <area>0</area>
+                  </network>
+                </ospf>
+              </router>
+            </native>
+          </config>
+
+    - name: Commit the configuration
+      netconf_config:
+        target: running
+        commit: true

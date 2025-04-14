@@ -1,0 +1,21 @@
+---
+- name: Configure OSPF on GigabitEthernet2
+  hosts: ios_xe_routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Configure GigabitEthernet2 interface
+      ios_config:
+        lines:
+          - no shutdown
+          - ip address 192.168.1.{{ 35 if inventory_hostname == 'router1' else 101 }} 255.255.255.0
+        parents: interface GigabitEthernet2
+        save_when: modified
+
+    - name: Configure OSPF
+      ios_config:
+        lines:
+          - network 192.168.1.0 0.0.0.255 area 0
+        parents: router ospf 1
+        save_when: modified

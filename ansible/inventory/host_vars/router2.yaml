@@ -1,0 +1,4 @@
+loopback0:
+  ip: 10.0.0.2
+  mask: 32
+  description: "Router2 Loopback Interface"

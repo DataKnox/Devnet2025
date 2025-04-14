@@ -1,0 +1,15 @@
+---
+- name: Gather and display facts from Cisco IOS-XE routers
+  hosts: ios_xe_routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Gather facts from IOS-XE devices
+      cisco.ios.ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - name: Display gathered facts
+      ansible.builtin.debug:
+        var: ios_facts.ansible_facts

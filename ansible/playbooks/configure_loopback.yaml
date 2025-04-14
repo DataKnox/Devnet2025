@@ -1,0 +1,22 @@
+---
+- name: Configure Loopback Interfaces
+  hosts: ios_xe_routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Configure Loopback0 Interface Description
+      cisco.ios.ios_interfaces:
+        config:
+          - name: Loopback0
+            description: "{{ loopback0.description }}"
+            enabled: true
+        state: merged
+
+    - name: Configure Loopback0 IP Address
+      cisco.ios.ios_l3_interfaces:
+        config:
+          - name: Loopback0
+            ipv4:
+              - address: "{{ loopback0.ip }}/{{ loopback0.mask }}"
+        state: merged
