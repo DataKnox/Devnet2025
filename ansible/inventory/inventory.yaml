@@ -7,10 +7,16 @@ all:
           ansible_user: admin
           ansible_password: password
           ansible_network_os: ios
-          ansible_connection: netconf
+          ansible_connection: network_cli
         router2:
           ansible_host: 192.168.0.101
           ansible_user: admin
           ansible_password: password
           ansible_network_os: ios
-          ansible_connection: netconf
+          ansible_connection: network_cli
+        cat8kv:
+          ansible_host: devnetsandboxiosxec9k.cisco.com
+          ansible_user: knox
+          ansible_password: Wc1_HGhH1B-s4
+          ansible_network_os: ios
+          ansible_connection: network_cli

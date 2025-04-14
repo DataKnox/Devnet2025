@@ -1,0 +1,39 @@
+---
+- name: Configure Loopback Interfaces on IOS XE 16.11.01b
+  hosts: ios_xe_routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Gather IOS facts
+      ios_facts:
+        gather_subset: all
+      register: ios_facts
+
+    - name: Configure Loopback Interface
+      ios_interfaces:
+        config:
+          - name: Loopback0
+            description: Ansible Managed Loopback
+            enabled: true
+      when: ios_facts.ansible_net_version == "16.11.01b"
+      register: interface_result
+
+    - name: Configure Loopback IP Address
+      ios_l3_interfaces:
+        config:
+          - name: Loopback0
+            ipv4:
+              - address: 10.0.0.{{ inventory_hostname | regex_replace('router(\\d+)', '\\1') }}/32
+      when: ios_facts.ansible_net_version == "16.11.01b"
+      register: ip_result
+
+    - name: Show interface configuration changes
+      debug:
+        var: interface_result
+      when: interface_result.changed
+
+    - name: Show IP configuration changes
+      debug:
+        var: ip_result
+      when: ip_result.changed
