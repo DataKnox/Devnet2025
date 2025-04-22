@@ -1,10 +1,16 @@
 ---
 - name: Configure Loopback Interfaces on IOS XE 16.11.01b
   hosts: ios_xe_routers
+  vars_files:
+    - secrets.yml
   gather_facts: false
   connection: network_cli
 
   tasks:
+    - name: Print secret
+      debug:
+        var: { { my_secret } }
+
     - name: Gather IOS facts
       ios_facts:
         gather_subset: all
