@@ -2,7 +2,7 @@ import requests
 import json
 
 # API Configuration
-API_KEY = "67b3b2a31a4a84cfe6e33def17688906941f548b"
+API_KEY = "67b3b2a31a4a84cfe6e33"
 BASE_URL = "https://api.meraki.com/api/v1"
 ORGANIZATION_NAME = "DevNet Sandbox"
 

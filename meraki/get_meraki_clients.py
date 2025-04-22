@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 # Initialize the Meraki SDK
-API_KEY = "67b3b2a31a4a84cfe6e33def17688906941f548b"
+API_KEY = "67b3b2a31a"
 dashboard = meraki.DashboardAPI(API_KEY, output_log=False, print_console=False)
 
 def get_organization_id(org_name):

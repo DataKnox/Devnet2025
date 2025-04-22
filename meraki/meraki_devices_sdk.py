@@ -1,7 +1,7 @@
 import meraki
 
 # API Configuration
-API_KEY = "67b3b2a31a4a84cfe6e33def17688906941f548b"
+API_KEY = "67b3b2a31a4"
 ORGANIZATION_NAME = "DevNet Sandbox"
 
 def main():
