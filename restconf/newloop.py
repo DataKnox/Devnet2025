@@ -2,16 +2,21 @@ import requests
 import json
 from requests.auth import HTTPBasicAuth
 import urllib3
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Disable SSL verification warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Device details
-HOST = '192.168.0.35'
-PORT = 443  # Default RESTCONF port
-USER = 'admin'
-PASS = 'password'
-
+HOST = os.getenv('HOST')
+PORT = os.getenv('PORT')
+USER = os.getenv('USER')
+PASS = os.getenv('PASS')
+my_var = os.getenv('MY_NEW_VAR')
+print(my_var)
 # RESTCONF headers and base URL
 HEADERS = {
     'Accept': 'application/yang-data+json',
