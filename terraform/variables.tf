@@ -1,28 +1,23 @@
 variable "linode_token" {
-  description = "Linode API token"
+  description = "Your Linode API token"
   type        = string
+  sensitive   = true
 }
 
-variable "region" {
-  description = "Linode region (Atlanta)"
+variable "instance_label" {
+  description = "The label for the Linode instance"
   type        = string
-  default     = "us-southeast"
+  default     = "ubuntu-server"
 }
 
-variable "instance_type" {
-  description = "Linode plan (4 GB shared-CPU)"
+variable "root_password" {
+  description = "The root password for the Linode instance"
   type        = string
-  default     = "g6-standard-2"
+  sensitive   = true
 }
 
-variable "image" {
-  description = "OS image"
-  type        = string
-  default     = "linode/ubuntu24.04"
-}
-
-variable "label" {
-  description = "Label for this Linode instance"
-  type        = string
-  default     = "tf-linode-vm"
-}
+variable "tags" {
+  description = "Tags to apply to the Linode instance"
+  type        = list(string)
+  default     = ["terraform", "ubuntu", "devnet2025"]
+} 

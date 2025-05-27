@@ -1,0 +1,4 @@
+linode_token     = "your-linode-api-token-here"
+instance_label   = "ubuntu-server"
+root_password    = "your-secure-root-password-here"
+tags            = ["terraform", "ubuntu", "devnet2025"] 

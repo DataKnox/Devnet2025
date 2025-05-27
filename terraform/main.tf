@@ -1,19 +1,27 @@
-# 1) Look up your existing SSH key by its label:
-data "linode_sshkey" "normalkey" {
+# Fetch the existing SSH key from Linode
+data "linode_sshkey" "existing_key" {
   label = "normalkey"
 }
 
-# 2) Create the Linode VM
-resource "linode_instance" "vm" {
-  label   = var.label
-  region  = var.region
-  type    = var.instance_type
-  image   = var.image
+resource "linode_instance" "ubuntu_server" {
+  label           = var.instance_label
+  image           = "linode/ubuntu24.04"
+  region          = "us-southeast"
+  type            = "g6-standard-4"  # 4 shared cores
+  root_pass       = var.root_password
+  authorized_keys = [data.linode_sshkey.existing_key.ssh_key]
+  tags            = var.tags
 
-  # Inject the public key from your existing "normalkey"
-  authorized_keys = [
-    data.linode_sshkey.normalkey.ssh_key
-  ]
+  # Ensure we have a clean shutdown
+  watchdog_enabled = true
 
-  group = "terraform"
-}
+  # Add some basic metadata
+  metadata {
+    user_data = base64encode(<<-EOF
+      #!/bin/bash
+      apt-get update
+      apt-get upgrade -y
+      EOF
+    )
+  }
+} 
