@@ -1,10 +1,3 @@
-provider "iosxe" {
-  username = var.device.username
-  password = var.device.password
-  url      = "https://${var.device.host}"
-  insecure = true
-}
-
 resource "iosxe_interface_loopback" "loopback2" {
   name              = var.loopback.id
   description       = var.loopback.description
